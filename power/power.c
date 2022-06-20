@@ -28,6 +28,9 @@
 #include <hardware/hardware.h>
 #include <hardware/power.h>
 
+#define MT_RUSH_BOOST_PATH "/proc/hps/rush_boost_enabled"
+#define MT_FPS_UPPER_BOUND_PATH "/d/ged/hal/fps_upper_bound"
+
 static void power_init(struct power_module *module)
 {
 	if (module)
@@ -59,7 +62,7 @@ int sysfs_write(char* path, char* s) {
 	return ret;
 }
 
-static void power_set_feature(struct power_module *module __unused, feature_t feature, int state)
+static void power_set_feature(struct power_module *module __unused, feature_t feature __unused, int state __unused)
 {
 #ifdef TAP_TO_WAKE_NODE
 	if (feature == POWER_FEATURE_DOUBLE_TAP_TO_WAKE)
@@ -67,7 +70,23 @@ static void power_set_feature(struct power_module *module __unused, feature_t fe
 #endif
 }
 
-static void power_hint(struct power_module *module __unused, power_hint_t hint __unused, void *data __unused) {}
+static void power_hint(struct power_module *module __unused, power_hint_t hint,
+                       void *data) {
+    switch (hint) {
+        case POWER_HINT_LOW_POWER:
+            if (data) {
+                sysfs_write(MT_FPS_UPPER_BOUND_PATH, "30");
+                sysfs_write(MT_RUSH_BOOST_PATH, "0");
+            } else {
+                sysfs_write(MT_FPS_UPPER_BOUND_PATH, "60");
+                sysfs_write(MT_RUSH_BOOST_PATH, "1");
+            }
+            ALOGI("POWER_HINT_LOW_POWER");
+            break;
+    default:
+        break;
+    }
+}
 
 static int power_open(const hw_module_t* module, const char* name, hw_device_t** device) {
 	if (module)
