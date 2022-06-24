@@ -1,0 +1,7 @@
+on property:dev.bootcomplete=1
+    start hp-daemon
+
+service hp-daemon /system/bin/hw/hp-daemon
+    user root
+    group root
+    oneshot
