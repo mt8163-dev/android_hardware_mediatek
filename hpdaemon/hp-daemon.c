@@ -213,6 +213,9 @@ int main()
         exit(1);
     }
 
+    // Disable volume keys switch
+    setALSAControlValue("VOLKEY_SWITCH", OFF);
+
     pfd.fd = ufd;
     pfd.events = POLLIN;
 
