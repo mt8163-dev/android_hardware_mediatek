@@ -1,0 +1,10 @@
+cc_library_shared {
+    name: "lights.mt8163",
+    header_libs: ["libhardware_headers"],
+    srcs: ["lights.c"],
+    compile_multilib: "both",
+
+    relative_install_path: "hw",
+    shared_libs: ["liblog"],
+    proprietary: true,
+}

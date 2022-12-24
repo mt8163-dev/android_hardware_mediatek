@@ -1,0 +1,49 @@
+//##########################################################################
+// MTK BT CHIP INIT LIBRARY FOR BLUEDROID
+//##########################################################################
+cc_library_shared {
+    name: "libbluetooth_mtk",
+
+    srcs: [
+        "mtk.c",
+        "radiomgr.c",
+        "radiomod.c",
+    ],
+
+    include_dirs: ["system/bt/hci/include"],
+    local_include_dirs: ["include"],
+
+    cflags: [
+        "-Wno-missing-field-initializers",
+        "-Wno-incompatible-pointer-types",
+    ],
+    ldflags: ["-fuse-ld=gold"],
+
+    proprietary: true,
+    owner: "mtk",
+    shared_libs: [
+        "liblog",
+        "libcutils",
+        "libnvram",
+    ],
+
+}
+
+//##########################################################################
+// MTK BT DRIVER FOR BLUEDROID
+//##########################################################################
+cc_library_shared {
+    name: "libbt-vendor",
+    srcs: ["bt_drv.c"],
+
+    include_dirs: ["system/bt/hci/include"],
+    local_include_dirs: ["include"],
+
+    proprietary: true,
+    owner: "mtk",
+    shared_libs: [
+        "liblog",
+        "libbluetooth_mtk",
+    ],
+
+}
