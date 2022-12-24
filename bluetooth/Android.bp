@@ -17,7 +17,6 @@ cc_library_shared {
         "-Wno-missing-field-initializers",
         "-Wno-incompatible-pointer-types",
     ],
-    ldflags: ["-fuse-ld=gold"],
 
     proprietary: true,
     owner: "mtk",

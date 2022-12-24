@@ -44,7 +44,6 @@ cc_library_shared {
     ],
 
     proprietary: true,
-    ldflags: ["-fuse-ld=gold"],
 }
 
 //
@@ -87,5 +86,4 @@ cc_library_shared {
     ],
 
     proprietary: true,
-    ldflags: ["-fuse-ld=gold"],
 }

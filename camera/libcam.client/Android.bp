@@ -17,6 +17,5 @@ cc_library_shared {
         "libcam_utils",
     ],
 
-    ldflags: ["-fuse-ld=gold"],
     cflags: ["-Wno-error"],
 }

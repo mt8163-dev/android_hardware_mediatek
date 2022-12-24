@@ -26,5 +26,4 @@ cc_library_shared {
     ],
 
     proprietary: true,
-    ldflags: ["-fuse-ld=gold"],
 }
